@@ -1,0 +1,31 @@
+{
+  "name": "remyhonig/photoorganize",
+  "description": "Organize media files into folders based on dates",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Remy Honig",
+      "email": "remy.honig@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/morrisonlevi/Ardent"
+    }
+  ],
+  "require": {
+    "task/filesystem": "~0.2",
+    "morrisonlevi/ardent": "~0.13",
+    "miljar/php-exif": "~0.4.0",
+    "phpcollection/phpcollection": "^0.4.0@dev",
+    "aura/di": "~2.0",
+    "task/task": "~0.6",
+    "task/cli": "~0.3"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.0"
+  },
+  "autoload": {"psr-0": {"": "src"}}
+}

@@ -1,0 +1,40 @@
+SRC=/import-folder-without-trailing-slash
+DST=user@server/resync-destination-folder
+
+TMP=/tmp/photoorganize-$(shell date +%Y-%m-%d)
+RSYNCOPTIONS=-v --progress --ignore-existing --copy-links -av
+
+.PHONY: clean dryrun-symlink dryrun-rsync
+.SILENT: debug dryrun-symlink symlink dryrun-rsync rsync
+
+import: dryrun-symlink debug symlink dryrun-rsync
+transfer: debug rsync
+all: debug symlink rsync
+
+install:
+	php -r "readfile('https://getcomposer.org/installer');" | php
+	php composer.phar install
+
+clean:
+	rm -r $(TMP)
+
+debug:
+	echo "======================================================================"
+	echo "Files will be read from      : $(SRC)"
+	echo "Symlinks will be stored in   : $(TMP)"
+	echo "Files will be transferred to : $(DST)"
+	echo "======================================================================"
+
+dryrun-symlink:
+	vendor/bin/task symlink -s $(SRC) -d $(TMP) -x
+
+symlink:
+	read -p "Press [ENTER] now to create symlinks..."
+	vendor/bin/task symlink -s $(SRC) -d $(TMP)
+
+dryrun-rsync:
+	rsync --dry-run $(RSYNCOPTIONS) $(TMP)/ $(DST)
+
+rsync:
+	read -p "Press [ENTER] now to actually transfer files with rsync..."	
+	rsync $(RSYNCOPTIONS) $(TMP)/ $(DST)
