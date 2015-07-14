@@ -12,7 +12,7 @@ The other reason I made this script is to see what can be done with TaskPHP and 
  - http://taskphp.github.io
  - https://github.com/morrisonlevi/Ardent
  
-# Usage
+# Installation
 
 Copy ``Makefile.dist`` to ``Makefile`` (``cp Makefile.dist Makefile``)
 Edit the ``Makefile`` variables at the top of the file for your environment:
@@ -29,7 +29,11 @@ SRC=/home/seafile/photos-phone/
 DST=user@192.168.178.2:/photoshow/photos/Photos
 ```
 
+If you do not have composer installed then first run ``make install`` to download all dependencies of this script.
+
+# Usage
+
 Then run ``make import`` to import a directory with photo's. This will fill the ``TMP`` directory with folders matching
-the dates found in the media files.
+the dates found in the media files and symlinks to the original files. It will not alter the original files in any way.
 
 Finally run ``make transfer`` to send the files over to ``DST``.
