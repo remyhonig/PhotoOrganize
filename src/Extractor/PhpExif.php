@@ -1,6 +1,7 @@
 <?php
 namespace PhotoOrganize\Extractor;
 
+use PhotoOrganize\Domain\FileWithDate;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
 
@@ -52,10 +53,8 @@ class PhpExif extends Extractor
     {
         $this->load($file);
         if ($this->valid() && $this->date) {
-            return $this->date;
+            return new FileWithDate($file, $this->date);
         }
-        if ($this->hasSuccessor()) {
-            return $this->getSuccessor()->getDate($file);
-        }
+        $this->nextInChain($file);
     }
 }

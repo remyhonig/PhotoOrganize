@@ -2,7 +2,7 @@
 namespace PhotoOrganize\Extractor;
 
 
-abstract class Extractor
+abstract class Extractor implements ExtractorInterface
 {
     /**
      * @var Extractor
@@ -17,18 +17,18 @@ abstract class Extractor
         $this->successor = $extractor;
     }
 
-    public function hasSuccessor()
+    private function hasSuccessor()
     {
         return !is_null($this->successor);
     }
 
-    /**
-     * @return Extractor
-     */
-    public function getSuccessor()
+    protected function nextInChain($file)
     {
-        return $this->successor;
+        if ($this->hasSuccessor()) {
+            return $this->successor->getDate($file);
+        }
+        return false;
     }
 
-    abstract function getDate(\SplFileInfo $file);
+    abstract public function getDate(\SplFileInfo $file);
 }

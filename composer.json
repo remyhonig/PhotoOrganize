@@ -17,15 +17,18 @@
   ],
   "require": {
     "task/filesystem": "~0.2",
-    "morrisonlevi/ardent": "~0.13",
+    "morrisonlevi/ardent": "0.14",
     "miljar/php-exif": "~0.4.0",
     "phpcollection/phpcollection": "^0.4.0@dev",
     "aura/di": "~2.0",
     "task/task": "~0.6",
-    "task/cli": "~0.3"
+    "task/cli": "~0.3",
+    "ray/di": "2.x-dev",
+    "reactivex/rxphp": "dev-master",
+    "beberlei/assert": "v2.4"
   },
   "require-dev": {
     "phpspec/phpspec": "~2.0"
   },
-  "autoload": {"psr-0": {"": "src"}}
+  "autoload": {"psr-4": {"PhotoOrganize\\": "src/"}}
 }

@@ -2,6 +2,8 @@
 namespace PhotoOrganize\Extractor;
 
 
+use PhotoOrganize\Domain\FileWithDate;
+
 class Whatsapp extends Extractor
 {
     public function getDate(\SplFileInfo $file)
@@ -26,14 +28,6 @@ class Whatsapp extends Extractor
             return $this->nextInChain($file);
         }
 
-        return $date;
-    }
-
-    private function nextInChain($file)
-    {
-        if ($this->hasSuccessor()) {
-            return $this->getSuccessor()->getDate($file);
-        }
-        return false;
+        return new FileWithDate($file, $date);
     }
 }

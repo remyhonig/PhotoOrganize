@@ -1,7 +1,8 @@
 <?php
 
-namespace PhotoOrganize;
+namespace PhotoOrganize\Domain;
 use DateTime;
+use PhotoOrganize\Domain\FilesystemInterface;
 use SplFileInfo;
 
 class FileWithDate
@@ -33,18 +34,32 @@ class FileWithDate
 
     public function createSymlink($targetDir, FilesystemInterface $fs)
     {
-        $dir = $this->date->format("Y/m/d");
+        $dir = $this->getDatePath();
         $fs->mkdir("$targetDir/$dir");
         $fs->symlink(
             $this->file->getRealPath(),
-            "$targetDir/$dir",
-            $this->file->getFilename()
+            "$targetDir/{$this->getSymlinkTarget()}",
+            true
         );
-        return "$targetDir/$dir/{$this->file->getFilename()}";
+        return "$targetDir/{$this->getSymlinkTarget()}";
+    }
+
+    public function getSymlinkTarget()
+    {
+        $dir = $this->getDatePath();
+        return "$dir/{$this->file->getFilename()}";
     }
 
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDatePath()
+    {
+        return $this->date->format("Y/m/d");
     }
 }
