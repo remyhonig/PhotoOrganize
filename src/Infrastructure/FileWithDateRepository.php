@@ -2,7 +2,6 @@
 namespace PhotoOrganize\Infrastructure;
 
 use PhotoOrganize\Extractor\ExtractorInterface;
-use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Domain\FileWithDate;
 use Rx\Observable;
 use SplFileInfo;
@@ -10,23 +9,15 @@ use SplFileInfo;
 class FileWithDateRepository
 {
     /**
-     * @var FilesystemInterface
-     */
-    private $fs;
-
-    /**
      * @var ExtractorInterface
      */
     private $extractor;
 
     /**
-     * SymlinkCommand constructor.
-     * @param FilesystemInterface $fs
      * @param ExtractorInterface $extractor
      */
-    public function __construct(FilesystemInterface $fs, ExtractorInterface $extractor)
+    public function __construct(ExtractorInterface $extractor)
     {
-        $this->fs = $fs;
         $this->extractor = $extractor;
     }
 
