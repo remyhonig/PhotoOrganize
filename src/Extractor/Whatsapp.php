@@ -20,7 +20,6 @@ class Whatsapp extends Extractor
 
         $date = \DateTime::createFromFormat('Ymd', $parts[1]);
         if (!$date) {
-            echo "$file";
             return $this->nextInChain($file);
         }
 
