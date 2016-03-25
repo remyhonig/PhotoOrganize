@@ -26,7 +26,7 @@ class FilesystemPreviewer extends FilesystemPlugin implements FilesystemInterfac
         $this->dirs->set($targetDir, $current);
     }
 
-    public function mkdir($path)
+    public function mkdir($path, $mode = 0777)
     {
         if (!$this->dirs->offsetExists($path)) {
             $this->dirs->set($path, new SplayTree());
