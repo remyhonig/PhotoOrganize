@@ -2,6 +2,7 @@
 
 namespace spec\PhotoOrganize\Extractor;
 
+use PhotoOrganize\Domain\FileWithDate;
 use PhotoOrganize\Extractor\Extractor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -32,13 +33,21 @@ class WhatsappSpec extends ObjectBehavior
 
     function it_returns_date_when_pattern_is_valid()
     {
-        $this->getDate(new \SplFileInfo('IMG-20140605-WA0000.jpg'))->shouldHaveType('DateTime');
-        $this->getDate(new \SplFileInfo('VID-20140605-WA0000.mp4'))->shouldHaveType('DateTime');
+        $this->getDate(new \SplFileInfo('IMG-20140605-WA0000.jpg'))->shouldHaveType(FileWithDate::class);
+        $this->getDate(new \SplFileInfo('VID-20140605-WA0000.mp4'))->shouldHaveType(FileWithDate::class);
     }
 
     function it_parses_correct_date()
     {
-        $date = new \DateTime();
-        $this->getDate(new \SplFileInfo('IMG-20140605-WA0000.jpg'))->shouldBeLike($date->setDate(2014, 06, 05));
+        $this->getDate(new \SplFileInfo('IMG-20140605-WA0000.jpg'))->shouldHavePath("2014/06/05");
+    }
+
+    function getMatchers()
+    {
+        return [
+            'havePath' => function (FileWithDate $subject, $key) {
+                return $subject->getDatePath() == $key;
+            }
+        ];
     }
 }

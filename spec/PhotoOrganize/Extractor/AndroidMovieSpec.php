@@ -2,6 +2,7 @@
 
 namespace spec\PhotoOrganize\Extractor;
 
+use PhotoOrganize\Domain\FileWithDate;
 use PhotoOrganize\Extractor\Extractor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -32,6 +33,6 @@ class AndroidMovieSpec extends ObjectBehavior
 
     function it_returns_date_when_pattern_is_valid()
     {
-        $this->getDate(new \SplFileInfo('VID_20141205_WA0000.mp4'))->shouldHaveType('DateTime');
+        $this->getDate(new \SplFileInfo('VID_20141205_WA0000.mp4'))->shouldHaveType(FileWithDate::class);
     }
 }
