@@ -1,6 +1,7 @@
 <?php
 namespace PhotoOrganize\Application;
 
+use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\SymlinkCommand;
 use PhotoOrganize\Infrastructure\SymlinkCommandRepository;
@@ -34,19 +35,27 @@ class SymlinkUseCase
     private $symlinkRepository;
 
     /**
+     * @var FilesystemInterface
+     */
+    private $filesystem;
+
+    /**
      * @param SymlinkCommandRepository $symlinkCommandRepository
      * @param FileWithDateRepository $fileWithDateRepository
      * @param SymlinkRepository $symlinkRepository
+     * @param FilesystemInterface $filesystem
      */
     public function __construct(
         SymlinkCommandRepository $symlinkCommandRepository,
         FileWithDateRepository $fileWithDateRepository,
-        SymlinkRepository $symlinkRepository
+        SymlinkRepository $symlinkRepository,
+        FilesystemInterface $filesystem
     ) {
         $this->output = new Subject();
         $this->symlinkCommandRepository = $symlinkCommandRepository;
         $this->fileWithDateRepository = $fileWithDateRepository;
         $this->symlinkRepository = $symlinkRepository;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -65,28 +74,27 @@ class SymlinkUseCase
      */
     public function execute($sourceDir, $targetDir, $isDryRun)
     {
-        $filesWithDate = $this->fileWithDateRepository->findAllIn(new Path($sourceDir))->publish();
+        $files = Observable::fromIterator($this->filesystem->ls($sourceDir));
+        $filesWithDate = $this->fileWithDateRepository->extractDateFrom($files)->publish();
+        $symlinkCommands = $this->symlinkCommandRepository->createSymlinkCommands($filesWithDate, new Path($targetDir));
 
-        $filesWithDate
-            ->map(
-                function (FileWithDate $file) use ($targetDir) {
-                    return(
-                        SymlinkCommand::from(
-                            $file->getFile()->getRealPath(),
-                            "{$targetDir}/{$file->getSymlinkTarget()}"
-                        )
-                    );
-                }
-            )
+
+        $symlinkCommands
             ->subscribeCallback(
-                function (SymlinkCommand $cmd) use ($isDryRun) {
+                function (SymlinkCommand $cmd) {
                     $this->output->onNext("$cmd");
-                    if (!$isDryRun) {
+                }
+            );
+
+        if (!$isDryRun) {
+            $symlinkCommands
+                ->subscribeCallback(
+                    function (SymlinkCommand $cmd) {
                         $this->output->onNext("write file");
                         $this->symlinkRepository->createLink($cmd->getSource(), $cmd->getTarget());
                     }
-                }
-            );
+                );
+        }
 
         $filesWithDate
             ->groupBy(

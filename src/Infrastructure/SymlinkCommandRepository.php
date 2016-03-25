@@ -23,14 +23,14 @@ class SymlinkCommandRepository
     }
 
     /**
+     * @param Observable $observable of FileWithDate
      * @param Path $sourcePath
      * @param Path $targetPath
      * @return Observable
      */
-    public function findAllFor(Path $sourcePath, Path $targetPath)
+    public function createSymlinkCommands(Observable $observable, Path $targetPath)
     {
-        return $this->fileWithDateRepository
-            ->findAllIn($sourcePath)
+        return $observable
             ->map(
                 function (FileWithDate $file) use ($targetPath) {
                     return(

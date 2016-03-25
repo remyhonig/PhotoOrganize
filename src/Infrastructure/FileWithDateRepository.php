@@ -1,7 +1,6 @@
 <?php
 namespace PhotoOrganize\Infrastructure;
 
-use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Extractor\ExtractorInterface;
 use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Domain\FileWithDate;
@@ -36,9 +35,9 @@ class FileWithDateRepository
      * @param $targetDir
      * @return Observable
      */
-    public function findAllIn(Path $sourceDir)
+    public function extractDateFrom(Observable $observable)
     {
-        return Observable::fromIterator($this->fs->ls($sourceDir->getValue()))
+        return $observable
             ->filter(function (SplFileInfo $file) {
                 return in_array(strtolower($file->getExtension()), ['jpg', 'jpeg', 'mp4']);
             })
