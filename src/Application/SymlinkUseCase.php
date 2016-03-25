@@ -65,19 +65,30 @@ class SymlinkUseCase
      */
     public function execute($sourceDir, $targetDir, $isDryRun)
     {
-        $this->symlinkCommandRepository
-            ->findAllFor(new Path($sourceDir), new Path($targetDir))
-            ->subscribeCallback(function (SymlinkCommand $cmd) use ($isDryRun) {
-                $this->output->onNext("$cmd");
-                if (!$isDryRun) {
-                    $this->output->onNext("write file");
-                    $this->symlinkRepository->createLink($cmd->getSource(), $cmd->getTarget());
+        $filesWithDate = $this->fileWithDateRepository->findAllIn(new Path($sourceDir))->publish();
+
+        $filesWithDate
+            ->map(
+                function (FileWithDate $file) use ($targetDir) {
+                    return(
+                        SymlinkCommand::from(
+                            $file->getFile()->getRealPath(),
+                            "{$targetDir}/{$file->getSymlinkTarget()}"
+                        )
+                    );
                 }
-            });
+            )
+            ->subscribeCallback(
+                function (SymlinkCommand $cmd) use ($isDryRun) {
+                    $this->output->onNext("$cmd");
+                    if (!$isDryRun) {
+                        $this->output->onNext("write file");
+                        $this->symlinkRepository->createLink($cmd->getSource(), $cmd->getTarget());
+                    }
+                }
+            );
 
-
-        $this->fileWithDateRepository
-            ->findAllIn(new Path($sourceDir))
+        $filesWithDate
             ->groupBy(
                 function (FileWithDate $file) {
                     return $file->getDatePath();
@@ -102,6 +113,7 @@ class SymlinkUseCase
                 }
             );
 
+        $filesWithDate->connect();
         $this->output->onCompleted();
     }
 }
