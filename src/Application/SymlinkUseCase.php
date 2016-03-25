@@ -1,15 +1,14 @@
 <?php
 namespace PhotoOrganize\Application;
 
+use PhotoOrganize\Application\SummaryRepository;
 use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\SymlinkCommand;
 use PhotoOrganize\Infrastructure\SymlinkCommandRepository;
 use PhotoOrganize\Infrastructure\FileWithDateRepository;
-use PhotoOrganize\Domain\FileWithDate;
 use PhotoOrganize\Infrastructure\SymlinkRepository;
 use Rx\Observable;
-use Rx\Observable\GroupedObservable;
 use Rx\Subject\Subject;
 
 class SymlinkUseCase
@@ -38,24 +37,31 @@ class SymlinkUseCase
      * @var FilesystemInterface
      */
     private $filesystem;
+    /**
+     * @var SummaryRepository
+     */
+    private $summaryRepository;
 
     /**
      * @param SymlinkCommandRepository $symlinkCommandRepository
      * @param FileWithDateRepository $fileWithDateRepository
      * @param SymlinkRepository $symlinkRepository
      * @param FilesystemInterface $filesystem
+     * @param SummaryRepository $summaryRepository
      */
     public function __construct(
         SymlinkCommandRepository $symlinkCommandRepository,
         FileWithDateRepository $fileWithDateRepository,
         SymlinkRepository $symlinkRepository,
-        FilesystemInterface $filesystem
+        FilesystemInterface $filesystem,
+        SummaryRepository $summaryRepository
     ) {
         $this->output = new Subject();
         $this->symlinkCommandRepository = $symlinkCommandRepository;
         $this->fileWithDateRepository = $fileWithDateRepository;
         $this->symlinkRepository = $symlinkRepository;
         $this->filesystem = $filesystem;
+        $this->summaryRepository = $summaryRepository;
     }
 
     /**
@@ -77,49 +83,26 @@ class SymlinkUseCase
         $files = Observable::fromIterator($this->filesystem->ls($sourceDir));
         $filesWithDate = $this->fileWithDateRepository->extractDateFrom($files)->publish();
         $symlinkCommands = $this->symlinkCommandRepository->createSymlinkCommands($filesWithDate, new Path($targetDir));
+        $summary = $this->summaryRepository->summarize($filesWithDate);
 
-
-        $symlinkCommands
-            ->subscribeCallback(
-                function (SymlinkCommand $cmd) {
-                    $this->output->onNext("$cmd");
-                }
-            );
+        $symlinkCommands->subscribeCallback(
+            function (SymlinkCommand $cmd) {
+                $this->output->onNext("$cmd");
+            }
+        );
 
         if (!$isDryRun) {
-            $symlinkCommands
-                ->subscribeCallback(
-                    function (SymlinkCommand $cmd) {
-                        $this->output->onNext("write file");
-                        $this->symlinkRepository->createLink($cmd->getSource(), $cmd->getTarget());
-                    }
-                );
-        }
-
-        $filesWithDate
-            ->groupBy(
-                function (FileWithDate $file) {
-                    return $file->getDatePath();
-                },
-                function (FileWithDate $file) {
-                    return $file->getDatePath();
-                },
-                function ($key) {
-                    return $key;
-                }
-            )
-            ->subscribeCallback(
-                function (GroupedObservable $grouped) {
-                    $grouped
-                        ->zip([
-                            $grouped->distinct(),
-                            $grouped->count()
-                        ])
-                        ->subscribeCallback(function ($value) {
-                            $this->output->onNext("created $value[1] with $value[2] files");
-                        });
+            $symlinkCommands->subscribeCallback(
+                function (SymlinkCommand $cmd) {
+                    $this->output->onNext("write file");
+                    $this->symlinkRepository->createLink($cmd->getSource(), $cmd->getTarget());
                 }
             );
+        }
+
+        $summary->subscribeCallback(function ($value) {
+            $this->output->onNext($value);
+        });
 
         $filesWithDate->connect();
         $this->output->onCompleted();

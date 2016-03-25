@@ -1,6 +1,7 @@
 <?php
 namespace PhotoOrganize\Application;
 
+use PhotoOrganize\Application\SummaryRepository;
 use PhotoOrganize\Infrastructure\SymlinkRepository;
 use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Extractor\AndroidMovie;
@@ -19,6 +20,7 @@ class DefaultModule extends AbstractModule
 {
     protected function configure()
     {
+        $this->bind(SummaryRepository::class);
         $this->bind(SymlinkUseCase::class);
         $this->bind(FileWithDateRepository::class);
         $this->bind(SymlinkCommandRepository::class);
