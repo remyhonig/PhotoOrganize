@@ -24,7 +24,6 @@ class SymlinkCommandRepository
 
     /**
      * @param Observable $observable of FileWithDate
-     * @param Path $sourcePath
      * @param Path $targetPath
      * @return Observable
      */

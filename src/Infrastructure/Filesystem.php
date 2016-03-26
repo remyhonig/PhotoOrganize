@@ -20,17 +20,28 @@ class Filesystem extends FilesystemPlugin implements FilesystemInterface {
         $this->dirsMade = new SplayTree();
     }
 
+    /**
+     * @param $dir
+     * @return RxFilesystemIteratorAdapter
+     */
     public function ls($dir)
     {
         return new RxFilesystemIteratorAdapter($dir);
     }
 
+    /**
+     * @param string $path
+     * @param int $mode
+     */
     public function mkdir($path, $mode = 511)
     {
         $this->dirsMade->add($path);
         parent::mkdir($path);
     }
 
+    /**
+     * @param OutputInterface $output
+     */
     public function summarize(OutputInterface $output)
     {
         foreach ($this->dirsMade as $dir) {

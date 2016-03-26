@@ -22,8 +22,7 @@ class FileWithDateRepository
     }
 
     /**
-     * @param $sourceDir
-     * @param $targetDir
+     * @param Observable $observable
      * @return Observable
      */
     public function extractDateFrom(Observable $observable)

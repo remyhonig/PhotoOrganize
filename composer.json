@@ -20,7 +20,6 @@
     "morrisonlevi/ardent": "0.14",
     "miljar/php-exif": "~0.4.0",
     "phpcollection/phpcollection": "^0.4.0@dev",
-    "aura/di": "~2.0",
     "task/task": "~0.6",
     "task/cli": "~0.3",
     "ray/di": "2.x-dev",

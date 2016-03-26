@@ -27,11 +27,20 @@ class FileWithDate
         $this->date = $date;
     }
 
+    /**
+     * @param FileWithDate $other
+     * @return bool
+     */
     public function compareDate(FileWithDate $other)
     {
         return $this->date > $other->date;
     }
 
+    /**
+     * @param $targetDir
+     * @param \PhotoOrganize\Domain\FilesystemInterface $fs
+     * @return string
+     */
     public function createSymlink($targetDir, FilesystemInterface $fs)
     {
         $dir = $this->getDatePath();
@@ -44,12 +53,18 @@ class FileWithDate
         return "$targetDir/{$this->getSymlinkTarget()}";
     }
 
+    /**
+     * @return string
+     */
     public function getSymlinkTarget()
     {
         $dir = $this->getDatePath();
         return "$dir/{$this->file->getFilename()}";
     }
 
+    /**
+     * @return SplFileInfo
+     */
     public function getFile()
     {
         return $this->file;

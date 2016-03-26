@@ -44,6 +44,7 @@ class SymlinkCommand
     /**
      * @param string $source
      * @param string $target
+     * @return SymlinkCommand
      */
     public static function from($source, $target)
     {

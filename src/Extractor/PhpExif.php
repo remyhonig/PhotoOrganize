@@ -47,6 +47,7 @@ class PhpExif extends Extractor
     }
 
     /**
+     * @param \SplFileInfo $file
      * @return \DateTime
      */
     public function getDate(\SplFileInfo $file)
@@ -55,6 +56,6 @@ class PhpExif extends Extractor
         if ($this->valid() && $this->date) {
             return new FileWithDate($file, $this->date);
         }
-        $this->nextInChain($file);
+        return $this->nextInChain($file);
     }
 }
