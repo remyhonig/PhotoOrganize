@@ -1,0 +1,4 @@
+suites:
+    inventory_suite:
+        namespace: PhotoOrganize
+        psr4_prefix: PhotoOrganize
