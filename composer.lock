@@ -4,57 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8e0159237490221514aa5945ca4505a7",
+    "hash": "92eb623eb466c90dac083ceef1c3f0ff",
     "packages": [
-        {
-            "name": "aura/di",
-            "version": "2.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/auraphp/Aura.Di.git",
-                "reference": "81d5d9c602ca292a16e32001dcbd2adab5350e28"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Di/zipball/81d5d9c602ca292a16e32001dcbd2adab5350e28",
-                "reference": "81d5d9c602ca292a16e32001dcbd2adab5350e28",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "aura": {
-                    "type": "library"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aura\\Di\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Aura.Di Contributors",
-                    "homepage": "https://github.com/auraphp/Aura.Di/contributors"
-                }
-            ],
-            "description": "Provides a dependency injection container system with native support for constructor- and setter-based injection, lazy-loading of services, and inheritable configuration of setters and constructor params.",
-            "homepage": "https://github.com/auraphp/Aura.Di",
-            "keywords": [
-                "container",
-                "dependency injection",
-                "dependency injection container",
-                "di",
-                "di container"
-            ],
-            "time": "2016-01-21 09:34:53"
-        },
         {
             "name": "beberlei/assert",
             "version": "v2.4",
@@ -118,7 +69,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/07a9af2d4de5f9ef0bf2d9ae94421e5fc50d7859",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/2e1b1f7597e2f647e99e96e747fcae9718ac817b",
                 "reference": "07a9af2d4de5f9ef0bf2d9ae94421e5fc50d7859",
                 "shasum": ""
             },
@@ -231,6 +182,57 @@
             "time": "2014-09-09 13:34:57"
         },
         {
+            "name": "hamcrest/hamcrest-php",
+            "version": "1.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hamcrest/hamcrest-php.git",
+                "reference": "b72949ccf2f640e7de66ff7dd92d83f577ce782e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/b72949ccf2f640e7de66ff7dd92d83f577ce782e",
+                "reference": "b72949ccf2f640e7de66ff7dd92d83f577ce782e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3|^7.0"
+            },
+            "replace": {
+                "cordoval/hamcrest-php": "*",
+                "davedevelopment/hamcrest-php": "*",
+                "kodova/hamcrest-php": "*"
+            },
+            "require-dev": {
+                "phpunit/php-file-iterator": "1.3.3",
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "hamcrest"
+                ],
+                "files": [
+                    "hamcrest/Hamcrest.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "description": "This is the PHP port of Hamcrest Matchers",
+            "keywords": [
+                "test"
+            ],
+            "time": "2016-01-19 12:08:55"
+        },
+        {
             "name": "koriym/printo",
             "version": "1.x-dev",
             "source": {
@@ -324,6 +326,71 @@
                 "tiff"
             ],
             "time": "2015-04-04 11:11:54"
+        },
+        {
+            "name": "mockery/mockery",
+            "version": "0.9.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/padraic/mockery.git",
+                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/70bba85e4aabc9449626651f48b9018ede04f86b",
+                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b",
+                "shasum": ""
+            },
+            "require": {
+                "hamcrest/hamcrest-php": "~1.1",
+                "lib-pcre": ">=7.0",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Mockery": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Pádraic Brady",
+                    "email": "padraic.brady@gmail.com",
+                    "homepage": "http://blog.astrumfutura.com"
+                },
+                {
+                    "name": "Dave Marshall",
+                    "email": "dave.marshall@atstsolutions.co.uk",
+                    "homepage": "http://davedevelopment.co.uk"
+                }
+            ],
+            "description": "Mockery is a simple yet flexible PHP mock object framework for use in unit testing with PHPUnit, PHPSpec or any other testing framework. Its core goal is to offer a test double framework with a succinct API capable of clearly defining all possible object operations and interactions using a human readable Domain Specific Language (DSL). Designed as a drop in alternative to PHPUnit's phpunit-mock-objects library, Mockery is easy to integrate with PHPUnit and can operate alongside phpunit-mock-objects without the World ending.",
+            "homepage": "http://github.com/padraic/mockery",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "library",
+                "mock",
+                "mock objects",
+                "mockery",
+                "stub",
+                "test",
+                "test double",
+                "testing"
+            ],
+            "time": "2015-04-02 19:54:00"
         },
         {
             "name": "morrisonlevi/ardent",
@@ -1155,6 +1222,55 @@
     ],
     "packages-dev": [
         {
+            "name": "aura/di",
+            "version": "2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Di.git",
+                "reference": "81d5d9c602ca292a16e32001dcbd2adab5350e28"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Di/zipball/81d5d9c602ca292a16e32001dcbd2adab5350e28",
+                "reference": "81d5d9c602ca292a16e32001dcbd2adab5350e28",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "aura": {
+                    "type": "library"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Di\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Di Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Di/contributors"
+                }
+            ],
+            "description": "Provides a dependency injection container system with native support for constructor- and setter-based injection, lazy-loading of services, and inheritable configuration of setters and constructor params.",
+            "homepage": "https://github.com/auraphp/Aura.Di",
+            "keywords": [
+                "container",
+                "dependency injection",
+                "dependency injection container",
+                "di",
+                "di container"
+            ],
+            "time": "2016-01-21 09:34:53"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "dev-master",
             "source": {
@@ -1786,7 +1902,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/15d73518538b048dbb2e57be22b28390e1aaa4d6",
+                "url": "https://api.github.com/repos/symfony/process/zipball/78ff90f98b40e2e93a22df00aea048cef54a7a03",
                 "reference": "15d73518538b048dbb2e57be22b28390e1aaa4d6",
                 "shasum": ""
             },

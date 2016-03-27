@@ -3,7 +3,7 @@
 namespace PhotoOrganize\Application;
 
 use Rx\Observable;
-use Symfony\Component\Finder\SplFileInfo;
+use SplFileInfo;
 
 class ImageDateRepository
 {

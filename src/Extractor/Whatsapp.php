@@ -2,31 +2,37 @@
 namespace PhotoOrganize\Extractor;
 
 
+use DateTimeImmutable;
 use PhotoOrganize\Domain\FileWithDate;
+use SplFileInfo;
 
-class Whatsapp extends Extractor
+class Whatsapp implements ExtractorInterface
 {
-    public function getDate(\SplFileInfo $file)
+    /**
+     * @param SplFileInfo $file
+     * @return FileWithDate
+     */
+    public function getDate(SplFileInfo $file)
     {
         $parts = explode('-', $file->getFilename());
 
         if (count($parts) !== 3) {
-            return $this->nextInChain($file);
+            return null;
         }
 
         if (!in_array($parts[0], ["IMG", "VID"])) {
-            return $this->nextInChain($file);
+            return null;
         }
 
-        $date = \DateTime::createFromFormat('Ymd', $parts[1]);
+        $date = DateTimeImmutable::createFromFormat('Ymd', $parts[1]);
         if (!$date) {
-            return $this->nextInChain($file);
+            return null;
         }
 
         if ($date->format('Ymd') !== $parts[1]) {
-            return $this->nextInChain($file);
+            return null;
         }
 
-        return new FileWithDate($file, $date);
+        return $date;
     }
 }

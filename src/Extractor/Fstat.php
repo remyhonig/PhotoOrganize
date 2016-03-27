@@ -1,14 +1,17 @@
 <?php
 namespace PhotoOrganize\Extractor;
 
-use DateTime;
-use PhotoOrganize\Domain\FileWithDate;
+use DateTimeImmutable;
+use SplFileInfo;
 
-class Fstat extends Extractor
+class Fstat implements ExtractorInterface
 {
-    public function getDate(\SplFileInfo $file)
+    /**
+     * @param SplFileInfo $file
+     * @return DateTimeImmutable|null
+     */
+    public function getDate(SplFileInfo $file)
     {
-        $result = new DateTime("@{$file->getMTime()}");
-        return new FileWithDate($file, $result);
+        return new DateTimeImmutable("@{$file->getMTime()}");
     }
 }

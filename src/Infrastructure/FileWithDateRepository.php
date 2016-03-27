@@ -1,7 +1,7 @@
 <?php
 namespace PhotoOrganize\Infrastructure;
 
-use PhotoOrganize\Extractor\ExtractorInterface;
+use PhotoOrganize\Application\ImageDateRepository;
 use PhotoOrganize\Domain\FileWithDate;
 use Rx\Observable;
 use SplFileInfo;
@@ -9,16 +9,16 @@ use SplFileInfo;
 class FileWithDateRepository
 {
     /**
-     * @var ExtractorInterface
+     * @var ImageDateRepository
      */
-    private $extractor;
+    private $imageDateRepository;
 
     /**
-     * @param ExtractorInterface $extractor
+     * @param ImageDateRepository $imageDateRepository
      */
-    public function __construct(ExtractorInterface $extractor)
+    public function __construct(ImageDateRepository $imageDateRepository)
     {
-        $this->extractor = $extractor;
+        $this->imageDateRepository = $imageDateRepository;
     }
 
     /**
@@ -31,11 +31,12 @@ class FileWithDateRepository
             ->filter(function (SplFileInfo $file) {
                 return in_array(strtolower($file->getExtension()), ['jpg', 'jpeg', 'mp4']);
             })
-            ->map(function (SplFileInfo $file) {
-                return $this->extractor->getDate($file);
-            })
-            ->filter(function (FileWithDate $file = null) {
-                return !is_null($file);
+            ->flatMap(function (SplFileInfo $file) {
+                return $this->imageDateRepository
+                    ->extractDate($file)
+                    ->map(function (\DateTimeImmutable $date) use ($file) {
+                        return new FileWithDate($file, $date);
+                    });
             });
     }
 }

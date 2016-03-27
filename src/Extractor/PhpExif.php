@@ -1,11 +1,12 @@
 <?php
 namespace PhotoOrganize\Extractor;
 
-use PhotoOrganize\Domain\FileWithDate;
+use DateTimeImmutable;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
+use SplFileInfo;
 
-class PhpExif extends Extractor
+class PhpExif implements ExtractorInterface
 {
     /**
      * @var Reader
@@ -28,10 +29,10 @@ class PhpExif extends Extractor
     }
 
     /**
-     * @param \SplFileInfo $file
+     * @param SplFileInfo $file
      * @return bool
      */
-    private function load(\SplFileInfo $file)
+    private function load(SplFileInfo $file)
     {
         try {
             $this->exifData = $this->exif->read($file->getRealPath());
@@ -47,15 +48,15 @@ class PhpExif extends Extractor
     }
 
     /**
-     * @param \SplFileInfo $file
-     * @return \DateTime
+     * @param SplFileInfo $file
+     * @return DateTimeImmutable|null
      */
-    public function getDate(\SplFileInfo $file)
+    public function getDate(SplFileInfo $file)
     {
         $this->load($file);
         if ($this->valid() && $this->date) {
-            return new FileWithDate($file, $this->date);
+            return DateTimeImmutable::createFromMutable($this->date);
         }
-        return $this->nextInChain($file);
+        return null;
     }
 }

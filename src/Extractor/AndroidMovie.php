@@ -1,33 +1,36 @@
 <?php
 namespace PhotoOrganize\Extractor;
 
+use DateTimeImmutable;
+use SplFileInfo;
 
-use PhotoOrganize\Domain\FileWithDate;
-
-class AndroidMovie extends Extractor
+class AndroidMovie implements ExtractorInterface
 {
-    public function getDate(\SplFileInfo $file)
+    /**
+     * @param SplFileInfo $file
+     * @return DateTimeImmutable|null
+     */
+    public function getDate(SplFileInfo $file)
     {
         $parts = explode('_', $file->getFilename());
 
         if (count($parts) !== 3) {
-            return $this->nextInChain($file);
+            return null;
         }
 
         if (!in_array($parts[0], ["VID"])) {
-            return $this->nextInChain($file);
+            return null;
         }
 
-        $date = \DateTime::createFromFormat('Ymd', $parts[1]);
+        $date = DateTimeImmutable::createFromFormat('Ymd', $parts[1]);
         if (!$date) {
-            echo "$file";
-            return $this->nextInChain($file);
+            return null;
         }
 
         if ($date->format('Ymd') !== $parts[1]) {
-            return $this->nextInChain($file);
+            return null;
         }
 
-        return new FileWithDate($file, $date);
+        return $date;
     }
 }

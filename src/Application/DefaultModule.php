@@ -5,8 +5,6 @@ use PhotoOrganize\Application\SummaryRepository;
 use PhotoOrganize\Infrastructure\SymlinkRepository;
 use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Extractor\AndroidMovie;
-use PhotoOrganize\Extractor\ChainFactory;
-use PhotoOrganize\Extractor\ExtractorInterface;
 use PhotoOrganize\Extractor\Fstat;
 use PhotoOrganize\Extractor\PhpExif;
 use PhotoOrganize\Extractor\Whatsapp;
@@ -27,7 +25,7 @@ class DefaultModule extends AbstractModule
         $this->bind(FilesystemPreviewer::class);
         $this->bind(SymlinkRepository::class);
         $this->bind(FilesystemInterface::class)->to(Filesystem::class);
-        $this->bind(ExtractorInterface::class)->toInstance(ChainFactory::createFrom([
+        $this->bind(ImageDateRepository::class)->toInstance(new ImageDateRepository([
             new Whatsapp(),
             new AndroidMovie(),
             new PhpExif(),

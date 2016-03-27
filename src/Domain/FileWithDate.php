@@ -1,7 +1,7 @@
 <?php
 
 namespace PhotoOrganize\Domain;
-use DateTime;
+use DateTimeImmutable;
 use PhotoOrganize\Domain\FilesystemInterface;
 use SplFileInfo;
 
@@ -13,15 +13,15 @@ class FileWithDate
     private $file;
 
     /**
-     * @var DateTime
+     * @var DateTimeImmutable
      */
     private $date;
 
     /**
      * @param SplFileInfo $file
-     * @param DateTime $date
+     * @param DateTimeImmutable $date
      */
-    function __construct(SplFileInfo $file, DateTime $date)
+    function __construct(SplFileInfo $file, DateTimeImmutable $date)
     {
         $this->file = $file;
         $this->date = $date;
