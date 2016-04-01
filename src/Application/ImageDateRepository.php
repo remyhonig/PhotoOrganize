@@ -2,7 +2,6 @@
 
 namespace PhotoOrganize\Application;
 
-use Rx\Observable;
 use SplFileInfo;
 
 class ImageDateRepository
@@ -22,24 +21,27 @@ class ImageDateRepository
 
     /**
      * @param SplFileInfo $file
-     * @return Observable\AnonymousObservable|Observable\EmptyObservable
+     * @return \DateTimeImmutable|null
      */
     public function extractDate(SplFileInfo $file)
     {
-        $observable = Observable::emptyObservable();
+        $extractions = array_map(
+            function($extractor) {
+                return function ($file) use ($extractor) {
+                    return $extractor->getDate($file);
+                };
+            },
+            $this->extractors
+        );
 
-        foreach ($this->extractors as $extractor) {
-            $deferred = Observable::defer(
-                function () use ($file, $extractor) {
-                    $result = $extractor->getDate($file);
-                    return $result
-                        ? Observable::just($result)
-                        : Observable::emptyObservable();
+        return array_reduce(
+            $extractions,
+            function ($acc, $value) use ($file) {
+                if (is_null($acc)) {
+                    return $value($file);
                 }
-            );
-            $observable = $observable->concat($deferred);
-        }
-
-        return $observable->take(1);
+                return $acc;
+            }
+        );
     }
 }

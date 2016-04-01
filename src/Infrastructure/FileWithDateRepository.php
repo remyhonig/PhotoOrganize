@@ -31,12 +31,9 @@ class FileWithDateRepository
             ->filter(function (SplFileInfo $file) {
                 return in_array(strtolower($file->getExtension()), ['jpg', 'jpeg', 'mp4']);
             })
-            ->flatMap(function (SplFileInfo $file) {
-                return $this->imageDateRepository
-                    ->extractDate($file)
-                    ->map(function (\DateTimeImmutable $date) use ($file) {
-                        return new FileWithDate($file, $date);
-                    });
+            ->map(function (SplFileInfo $file) {
+                $date = $this->imageDateRepository->extractDate($file);
+                return new FileWithDate($file, $date);
             });
     }
 }

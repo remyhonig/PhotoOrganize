@@ -21,10 +21,10 @@ class ImageDateRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('PhotoOrganize\Application\ImageDateRepository');
     }
 
-    function it_should_return_an_observable(SplFileInfo $fileInfo)
+    function it_should_return_null_if_nothing_found(SplFileInfo $fileInfo)
     {
         $this->beConstructedWith([]);
-        $this->extractDate($fileInfo)->shouldHaveType(Observable::class);
+        $this->extractDate($fileInfo)->shouldBe(null);
     }
 
     function it_should_return_dates(ExtractorInterface $extractor, SplFileInfo $fileInfo)
@@ -32,7 +32,7 @@ class ImageDateRepositorySpec extends ObjectBehavior
         $this->beConstructedWith([$extractor]);
         $extractor->getDate($fileInfo)->willReturn(new \DateTimeImmutable("2016/01/01"));
 
-        $this->extractDate($fileInfo)->shouldBeDate(new \DateTimeImmutable("2016/01/01"));
+        $this->extractDate($fileInfo)->shouldBeLike(new \DateTimeImmutable("2016/01/01"));
     }
 
     function it_should_not_try_more_extractors_after_one_finds_a_date(
@@ -44,11 +44,10 @@ class ImageDateRepositorySpec extends ObjectBehavior
         $this->beConstructedWith([$first, $second, $third]);
         $first->getDate($fileInfo)->willReturn(new \DateTimeImmutable("2016/01/01"));
 
-        // TODO: find out how to lazily call getDate instead of on subscribe
-        $second->getDate($fileInfo)->shouldBeCalled();
-        $third->getDate($fileInfo)->shouldBeCalled();
+        $second->getDate($fileInfo)->shouldNotBeCalled();
+        $third->getDate($fileInfo)->shouldNotBeCalled();
 
-        $this->extractDate($fileInfo)->shouldBeDate(new \DateTimeImmutable("2016/01/01"));
+        $this->extractDate($fileInfo)->shouldBeLike(new \DateTimeImmutable("2016/01/01"));
     }
 
     function it_should_choose_the_first_date_that_is_found(
@@ -60,7 +59,7 @@ class ImageDateRepositorySpec extends ObjectBehavior
         $first->getDate($fileInfo)->willReturn(null);
         $second->getDate($fileInfo)->willReturn(new \DateTimeImmutable("2015/01/01"));
 
-        $this->extractDate($fileInfo)->shouldBeDate(new \DateTimeImmutable("2015/01/01"));
+        $this->extractDate($fileInfo)->shouldBeLike(new \DateTimeImmutable("2015/01/01"));
     }
 
     function getMatchers()
