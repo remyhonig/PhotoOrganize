@@ -2,7 +2,8 @@
 namespace PhotoOrganize\Application;
 
 use PhotoOrganize\Application\SummaryRepository;
-use PhotoOrganize\Infrastructure\SymlinkRepository;
+use PhotoOrganize\Domain\LinkRepository;
+use PhotoOrganize\Infrastructure\FilesystemSymlinkRepository;
 use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Infrastructure\Extractor\AndroidMovie;
 use PhotoOrganize\Infrastructure\Extractor\Fstat;
@@ -23,7 +24,7 @@ class DefaultModule extends AbstractModule
         $this->bind(FileWithDateRepository::class);
         $this->bind(SymlinkCommandRepository::class);
         $this->bind(FilesystemPreviewer::class);
-        $this->bind(SymlinkRepository::class);
+        $this->bind(LinkRepository::class)->to(FilesystemSymlinkRepository::class);
         $this->bind(FilesystemInterface::class)->to(Filesystem::class);
         $this->bind(ImageDateRepository::class)->toInstance(new ImageDateRepository([
             new Whatsapp(),

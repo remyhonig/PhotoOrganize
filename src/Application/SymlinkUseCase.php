@@ -3,11 +3,12 @@ namespace PhotoOrganize\Application;
 
 use PhotoOrganize\Application\SummaryRepository;
 use PhotoOrganize\Domain\FilesystemInterface;
+use PhotoOrganize\Domain\LinkRepository;
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\SymlinkCommand;
 use PhotoOrganize\Infrastructure\SymlinkCommandRepository;
 use PhotoOrganize\Infrastructure\FileWithDateRepository;
-use PhotoOrganize\Infrastructure\SymlinkRepository;
+use PhotoOrganize\Infrastructure\FilesystemSymlinkRepository;
 use Rx\Observable;
 use Rx\Subject\Subject;
 
@@ -29,9 +30,9 @@ class SymlinkUseCase
     private $fileWithDateRepository;
 
     /**
-     * @var SymlinkRepository
+     * @var LinkRepository
      */
-    private $symlinkRepository;
+    private $linkRepository;
 
     /**
      * @var FilesystemInterface
@@ -44,22 +45,22 @@ class SymlinkUseCase
 
     /**
      * @param SymlinkCommandRepository $symlinkCommandRepository
-     * @param FileWithDateRepository $fileWithDateRepository
-     * @param SymlinkRepository $symlinkRepository
-     * @param FilesystemInterface $filesystem
-     * @param SummaryRepository $summaryRepository
+     * @param FileWithDateRepository   $fileWithDateRepository
+     * @param LinkRepository           $linkRepository
+     * @param FilesystemInterface      $filesystem
+     * @param SummaryRepository        $summaryRepository
      */
     public function __construct(
         SymlinkCommandRepository $symlinkCommandRepository,
         FileWithDateRepository $fileWithDateRepository,
-        SymlinkRepository $symlinkRepository,
+        LinkRepository $linkRepository,
         FilesystemInterface $filesystem,
         SummaryRepository $summaryRepository
     ) {
         $this->output = new Subject();
         $this->symlinkCommandRepository = $symlinkCommandRepository;
         $this->fileWithDateRepository = $fileWithDateRepository;
-        $this->symlinkRepository = $symlinkRepository;
+        $this->linkRepository = $linkRepository;
         $this->filesystem = $filesystem;
         $this->summaryRepository = $summaryRepository;
     }
@@ -95,7 +96,7 @@ class SymlinkUseCase
             $symlinkCommands->subscribeCallback(
                 function (SymlinkCommand $cmd) {
                     $this->output->onNext("write file");
-                    $this->symlinkRepository->createLink($cmd->getSource(), $cmd->getTarget());
+                    $this->linkRepository->createLink($cmd->getSource(), $cmd->getTarget());
                 }
             );
         }

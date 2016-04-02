@@ -1,10 +1,11 @@
 <?php
 namespace PhotoOrganize\Infrastructure;
 
+use PhotoOrganize\Domain\LinkRepository;
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\FilesystemInterface;
 
-class SymlinkRepository
+class FilesystemSymlinkRepository implements LinkRepository
 {
     /**
      * @var FilesystemInterface $fs
@@ -12,7 +13,6 @@ class SymlinkRepository
     private $fs;
 
     /**
-     * SymlinkRepository constructor.
      * @param FilesystemInterface $fs
      */
     public function __construct(FilesystemInterface $fs)
