@@ -1,5 +1,5 @@
 <?php
-namespace PhotoOrganize\Extractor;
+namespace PhotoOrganize\Domain;
 
 use DateTimeImmutable;
 

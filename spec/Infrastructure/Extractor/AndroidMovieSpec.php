@@ -10,7 +10,7 @@ class AndroidMovieSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('PhotoOrganize\Extractor\AndroidMovie');
+        $this->shouldHaveType('PhotoOrganize\Infrastructure\Extractor\AndroidMovie');
     }
 
     function it_returns_false_when_pattern_is_not_valid()

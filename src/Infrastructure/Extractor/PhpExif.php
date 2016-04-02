@@ -1,7 +1,8 @@
 <?php
-namespace PhotoOrganize\Extractor;
+namespace PhotoOrganize\Infrastructure\Extractor;
 
 use DateTimeImmutable;
+use PhotoOrganize\Domain\ExtractorInterface;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
 use SplFileInfo;

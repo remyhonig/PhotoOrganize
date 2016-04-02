@@ -1,9 +1,10 @@
 <?php
-namespace PhotoOrganize\Extractor;
+namespace PhotoOrganize\Infrastructure\Extractor;
 
 
 use DateTimeImmutable;
 use PhotoOrganize\Domain\FileWithDate;
+use PhotoOrganize\Domain\ExtractorInterface;
 use SplFileInfo;
 
 class Whatsapp implements ExtractorInterface

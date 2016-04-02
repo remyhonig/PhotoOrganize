@@ -10,7 +10,7 @@ class WhatsappSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('PhotoOrganize\Extractor\Whatsapp');
+        $this->shouldHaveType('PhotoOrganize\Infrastructure\Extractor\Whatsapp');
     }
 
     function it_returns_false_when_pattern_is_not_valid()
