@@ -32,16 +32,4 @@ class FilesystemPreviewer extends FilesystemPlugin implements FilesystemInterfac
             $this->dirs->set($path, new SplayTree());
         }
     }
-
-    public function summarize(OutputInterface $output)
-    {
-
-        foreach ($this->dirs as $dir => $files) {
-            var_dump($dir);
-            $output->writeln(sprintf("%s (%d files)", $dir, count($files)));
-            foreach ($files as $file) {
-                $output->writeln("    " . $file);
-            }
-        }
-    }
 }

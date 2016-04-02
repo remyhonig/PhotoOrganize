@@ -38,15 +38,4 @@ class Filesystem extends FilesystemPlugin implements FilesystemInterface {
         $this->dirsMade->add($path);
         parent::mkdir($path);
     }
-
-    /**
-     * @param OutputInterface $output
-     */
-    public function summarize(OutputInterface $output)
-    {
-        foreach ($this->dirsMade as $dir) {
-            $output->writeln(sprintf("created %s", $dir));
-        }
-        $output->writeln(sprintf("created %d directories in total", count($this->dirsMade)));
-    }
 }
