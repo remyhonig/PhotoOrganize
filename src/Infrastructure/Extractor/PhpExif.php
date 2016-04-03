@@ -2,12 +2,12 @@
 namespace PhotoOrganize\Infrastructure\Extractor;
 
 use DateTimeImmutable;
-use PhotoOrganize\Domain\Ports\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\DateExtractor;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
 use SplFileInfo;
 
-class PhpExif implements ExtractorInterface
+class PhpExif implements DateExtractor
 {
     /**
      * @var Reader

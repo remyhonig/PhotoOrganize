@@ -3,7 +3,7 @@ namespace PhotoOrganize\Domain\Ports;
 
 use DateTimeImmutable;
 
-interface ExtractorInterface
+interface DateExtractor
 {
     /**
      * @param \SplFileInfo $file

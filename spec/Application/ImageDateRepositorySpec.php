@@ -3,7 +3,7 @@
 namespace spec\PhotoOrganize\Application;
 
 use Mockery;
-use PhotoOrganize\Domain\Ports\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\DateExtractor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Rx\Notification\OnNextNotification;
@@ -27,7 +27,7 @@ class ImageDateRepositorySpec extends ObjectBehavior
         $this->extractDate($fileInfo)->shouldBe(null);
     }
 
-    function it_should_return_dates(ExtractorInterface $extractor, SplFileInfo $fileInfo)
+    function it_should_return_dates(DateExtractor $extractor, SplFileInfo $fileInfo)
     {
         $this->beConstructedWith([$extractor]);
         $extractor->getDate($fileInfo)->willReturn(new \DateTimeImmutable("2016/01/01"));
@@ -36,9 +36,9 @@ class ImageDateRepositorySpec extends ObjectBehavior
     }
 
     function it_should_not_try_more_extractors_after_one_finds_a_date(
-        ExtractorInterface $first,
-        ExtractorInterface $second,
-        ExtractorInterface $third,
+        DateExtractor $first,
+        DateExtractor $second,
+        DateExtractor $third,
         SplFileInfo $fileInfo
     ) {
         $this->beConstructedWith([$first, $second, $third]);
@@ -51,8 +51,8 @@ class ImageDateRepositorySpec extends ObjectBehavior
     }
 
     function it_should_choose_the_first_date_that_is_found(
-        ExtractorInterface $first,
-        ExtractorInterface $second,
+        DateExtractor $first,
+        DateExtractor $second,
         SplFileInfo $fileInfo
     ) {
         $this->beConstructedWith([$first, $second]);

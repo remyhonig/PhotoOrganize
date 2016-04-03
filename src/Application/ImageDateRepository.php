@@ -2,13 +2,13 @@
 
 namespace PhotoOrganize\Application;
 
-use PhotoOrganize\Domain\Ports\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\DateExtractor;
 use SplFileInfo;
 
 class ImageDateRepository
 {
     /**
-     * @var \PhotoOrganize\Domain\Ports\ExtractorInterface[]
+     * @var \PhotoOrganize\Domain\Ports\DateExtractor[]
      */
     private $extractors;
 

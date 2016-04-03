@@ -2,10 +2,10 @@
 namespace PhotoOrganize\Infrastructure\Extractor;
 
 use DateTimeImmutable;
-use PhotoOrganize\Domain\Ports\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\DateExtractor;
 use SplFileInfo;
 
-class AndroidMovie implements ExtractorInterface
+class AndroidMovie implements DateExtractor
 {
     /**
      * @param SplFileInfo $file

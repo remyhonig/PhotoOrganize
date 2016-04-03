@@ -4,10 +4,10 @@ namespace PhotoOrganize\Infrastructure\Extractor;
 
 use DateTimeImmutable;
 use PhotoOrganize\Domain\FileWithDate;
-use PhotoOrganize\Domain\Ports\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\DateExtractor;
 use SplFileInfo;
 
-class Whatsapp implements ExtractorInterface
+class Whatsapp implements DateExtractor
 {
     /**
      * @param SplFileInfo $file
