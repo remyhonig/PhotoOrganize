@@ -11,8 +11,7 @@ use PhotoOrganize\Infrastructure\DateExtractor\Fstat;
 use PhotoOrganize\Infrastructure\DateExtractor\PhpExif;
 use PhotoOrganize\Infrastructure\DateExtractor\Whatsapp;
 use PhotoOrganize\Infrastructure\FilesystemSymlinkRepository;
-use PhotoOrganize\Infrastructure\Filesystem\Filesystem;
-use PhotoOrganize\Infrastructure\Filesystem\FilesystemPreviewer;
+use PhotoOrganize\Infrastructure\Filesystem\PhpTaskFilesystem;
 use PhotoOrganize\Infrastructure\ImagesAndMoviesWithDateRepository;
 use Ray\Di\AbstractModule;
 
@@ -24,11 +23,10 @@ class DefaultModule extends AbstractModule
         $this->bind(SymlinkCommandRepository::class);
 
         $this->bind(SymlinkUseCase::class);
-        $this->bind(FilesystemPreviewer::class);
 
         $this->bind(FileWithDateRepository::class)->to(ImagesAndMoviesWithDateRepository::class);
         $this->bind(LinkRepository::class)->to(FilesystemSymlinkRepository::class);
-        $this->bind(FilesystemInterface::class)->to(Filesystem::class);
+        $this->bind(FilesystemInterface::class)->to(PhpTaskFilesystem::class);
         $this->bind(ImageDateRepository::class)->toInstance(new ImageDateRepository([
             new Whatsapp(),
             new AndroidMovie(),
