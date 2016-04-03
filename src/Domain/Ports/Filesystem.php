@@ -4,7 +4,7 @@ namespace PhotoOrganize\Domain\Ports;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-interface FilesystemInterface
+interface Filesystem
 {
     public function ls($path);
     public function symlink($originDir, $targetDir, $copyOnWindows = false);

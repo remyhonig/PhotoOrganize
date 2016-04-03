@@ -1,7 +1,7 @@
 <?php
 namespace PhotoOrganize\Application;
 
-use PhotoOrganize\Domain\Ports\FilesystemInterface;
+use PhotoOrganize\Domain\Ports\Filesystem;
 use PhotoOrganize\Domain\Ports\FileWithDateRepository;
 use PhotoOrganize\Domain\Ports\LinkRepository;
 use PhotoOrganize\Infrastructure\DateExtractor\AndroidMovie;
@@ -24,7 +24,7 @@ class DefaultModule extends AbstractModule
 
         $this->bind(FileWithDateRepository::class)->to(ImagesAndMoviesWithDateRepository::class);
         $this->bind(LinkRepository::class)->to(FilesystemSymlinkRepository::class);
-        $this->bind(FilesystemInterface::class)->to(PhpTaskFilesystem::class);
+        $this->bind(Filesystem::class)->to(PhpTaskFilesystem::class);
         $this->bind(ImageDateRepository::class)->toInstance(new ImageDateRepository([
             new Whatsapp(),
             new AndroidMovie(),

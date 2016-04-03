@@ -1,7 +1,7 @@
 <?php
 namespace PhotoOrganize\Application;
 
-use PhotoOrganize\Domain\Ports\FilesystemInterface;
+use PhotoOrganize\Domain\Ports\Filesystem;
 use PhotoOrganize\Domain\Ports\FileWithDateRepository;
 use PhotoOrganize\Domain\Ports\LinkRepository;
 use PhotoOrganize\Domain\Path;
@@ -32,7 +32,7 @@ class SymlinkUseCase
     private $linkRepository;
 
     /**
-     * @var FilesystemInterface
+     * @var Filesystem
      */
     private $filesystem;
 
@@ -45,14 +45,14 @@ class SymlinkUseCase
      * @param SymlinkCommandRepository $symlinkCommandRepository
      * @param FileWithDateRepository   $fileWithDateRepository
      * @param LinkRepository           $linkRepository
-     * @param FilesystemInterface      $filesystem
+     * @param Filesystem               $filesystem
      * @param SummaryRepository        $summaryRepository
      */
     public function __construct(
         SymlinkCommandRepository $symlinkCommandRepository,
         FileWithDateRepository $fileWithDateRepository,
         LinkRepository $linkRepository,
-        FilesystemInterface $filesystem,
+        Filesystem $filesystem,
         SummaryRepository $summaryRepository
     ) {
         $this->output = new Subject();

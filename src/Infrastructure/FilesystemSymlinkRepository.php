@@ -3,19 +3,19 @@ namespace PhotoOrganize\Infrastructure;
 
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\Ports\LinkRepository;
-use PhotoOrganize\Domain\Ports\FilesystemInterface;
+use PhotoOrganize\Domain\Ports\Filesystem;
 
 class FilesystemSymlinkRepository implements LinkRepository
 {
     /**
-     * @var \PhotoOrganize\Domain\Ports\FilesystemInterface $fs
+     * @var \PhotoOrganize\Domain\Ports\Filesystem $fs
      */
     private $fs;
 
     /**
-     * @param FilesystemInterface $fs
+     * @param Filesystem $fs
      */
-    public function __construct(FilesystemInterface $fs)
+    public function __construct(Filesystem $fs)
     {
         $this->fs = $fs;
     }
