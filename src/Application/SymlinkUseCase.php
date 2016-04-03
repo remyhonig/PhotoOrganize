@@ -1,15 +1,11 @@
 <?php
 namespace PhotoOrganize\Application;
 
-use PhotoOrganize\Application\SummaryRepository;
 use PhotoOrganize\Domain\Ports\FilesystemInterface;
 use PhotoOrganize\Domain\Ports\FileWithDateRepository;
 use PhotoOrganize\Domain\Ports\LinkRepository;
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\SymlinkCommand;
-use PhotoOrganize\Application\SymlinkCommandRepository;
-use PhotoOrganize\Infrastructure\ImagesAndMoviesWithDateRepository;
-use PhotoOrganize\Infrastructure\FilesystemSymlinkRepository;
 use Rx\Observable;
 use Rx\Subject\Subject;
 
@@ -26,7 +22,7 @@ class SymlinkUseCase
     private $output;
 
     /**
-     * @var \PhotoOrganize\Domain\Ports\FileWithDateRepository
+     * @var FileWithDateRepository
      */
     private $fileWithDateRepository;
 
@@ -39,6 +35,7 @@ class SymlinkUseCase
      * @var FilesystemInterface
      */
     private $filesystem;
+
     /**
      * @var SummaryRepository
      */

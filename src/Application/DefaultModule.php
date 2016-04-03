@@ -1,8 +1,6 @@
 <?php
 namespace PhotoOrganize\Application;
 
-use PhotoOrganize\Application\SummaryRepository;
-use PhotoOrganize\Application\SymlinkCommandRepository;
 use PhotoOrganize\Domain\Ports\FilesystemInterface;
 use PhotoOrganize\Domain\Ports\FileWithDateRepository;
 use PhotoOrganize\Domain\Ports\LinkRepository;

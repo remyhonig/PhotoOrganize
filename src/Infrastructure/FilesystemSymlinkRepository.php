@@ -1,8 +1,8 @@
 <?php
 namespace PhotoOrganize\Infrastructure;
 
-use PhotoOrganize\Domain\Ports\LinkRepository;
 use PhotoOrganize\Domain\Path;
+use PhotoOrganize\Domain\Ports\LinkRepository;
 use PhotoOrganize\Domain\Ports\FilesystemInterface;
 
 class FilesystemSymlinkRepository implements LinkRepository

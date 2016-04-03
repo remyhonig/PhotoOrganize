@@ -24,6 +24,7 @@ class ImagesAndMoviesWithDateRepository implements FileWithDateRepository
 
     /**
      * @param Observable $observable
+     *
      * @return Observable
      */
     public function extractDateFrom(Observable $observable)
