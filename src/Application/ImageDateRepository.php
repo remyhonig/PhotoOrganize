@@ -2,12 +2,13 @@
 
 namespace PhotoOrganize\Application;
 
+use PhotoOrganize\Domain\ExtractorInterface;
 use SplFileInfo;
 
 class ImageDateRepository
 {
     /**
-     * @var array
+     * @var ExtractorInterface[]
      */
     private $extractors;
 
