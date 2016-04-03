@@ -3,10 +3,11 @@ namespace PhotoOrganize\Infrastructure;
 
 use PhotoOrganize\Application\ImageDateRepository;
 use PhotoOrganize\Domain\FileWithDate;
+use PhotoOrganize\Domain\FileWithDateRepository;
 use Rx\Observable;
 use SplFileInfo;
 
-class FileWithDateRepository
+class ImagesAndMoviesWithDateRepository implements FileWithDateRepository
 {
     /**
      * @var ImageDateRepository

@@ -3,11 +3,12 @@ namespace PhotoOrganize\Application;
 
 use PhotoOrganize\Application\SummaryRepository;
 use PhotoOrganize\Domain\FilesystemInterface;
+use PhotoOrganize\Domain\FileWithDateRepository;
 use PhotoOrganize\Domain\LinkRepository;
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\SymlinkCommand;
 use PhotoOrganize\Application\SymlinkCommandRepository;
-use PhotoOrganize\Infrastructure\FileWithDateRepository;
+use PhotoOrganize\Infrastructure\ImagesAndMoviesWithDateRepository;
 use PhotoOrganize\Infrastructure\FilesystemSymlinkRepository;
 use Rx\Observable;
 use Rx\Subject\Subject;
