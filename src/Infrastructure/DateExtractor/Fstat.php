@@ -1,5 +1,5 @@
 <?php
-namespace PhotoOrganize\Infrastructure\Extractor;
+namespace PhotoOrganize\Infrastructure\DateExtractor;
 
 use DateTimeImmutable;
 use PhotoOrganize\Domain\Ports\DateExtractor;

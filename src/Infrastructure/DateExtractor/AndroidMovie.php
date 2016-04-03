@@ -1,27 +1,25 @@
 <?php
-namespace PhotoOrganize\Infrastructure\Extractor;
-
+namespace PhotoOrganize\Infrastructure\DateExtractor;
 
 use DateTimeImmutable;
-use PhotoOrganize\Domain\FileWithDate;
 use PhotoOrganize\Domain\Ports\DateExtractor;
 use SplFileInfo;
 
-class Whatsapp implements DateExtractor
+class AndroidMovie implements DateExtractor
 {
     /**
      * @param SplFileInfo $file
-     * @return FileWithDate
+     * @return DateTimeImmutable|null
      */
     public function getDate(SplFileInfo $file)
     {
-        $parts = explode('-', $file->getFilename());
+        $parts = explode('_', $file->getFilename());
 
         if (count($parts) !== 3) {
             return null;
         }
 
-        if (!in_array($parts[0], ["IMG", "VID"])) {
+        if (!in_array($parts[0], ["VID"])) {
             return null;
         }
 
