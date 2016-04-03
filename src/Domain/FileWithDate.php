@@ -2,7 +2,7 @@
 
 namespace PhotoOrganize\Domain;
 use DateTimeImmutable;
-use PhotoOrganize\Domain\FilesystemInterface;
+use PhotoOrganize\Domain\Ports\FilesystemInterface;
 use SplFileInfo;
 
 class FileWithDate
@@ -38,7 +38,7 @@ class FileWithDate
 
     /**
      * @param $targetDir
-     * @param \PhotoOrganize\Domain\FilesystemInterface $fs
+     * @param \PhotoOrganize\Domain\Ports\FilesystemInterface $fs
      * @return string
      */
     public function createSymlink($targetDir, FilesystemInterface $fs)

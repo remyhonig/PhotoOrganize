@@ -2,7 +2,7 @@
 namespace PhotoOrganize\Infrastructure\Extractor;
 
 use DateTimeImmutable;
-use PhotoOrganize\Domain\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\ExtractorInterface;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
 use SplFileInfo;

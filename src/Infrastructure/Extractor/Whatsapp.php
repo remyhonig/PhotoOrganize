@@ -4,7 +4,7 @@ namespace PhotoOrganize\Infrastructure\Extractor;
 
 use DateTimeImmutable;
 use PhotoOrganize\Domain\FileWithDate;
-use PhotoOrganize\Domain\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\ExtractorInterface;
 use SplFileInfo;
 
 class Whatsapp implements ExtractorInterface

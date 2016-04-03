@@ -3,7 +3,7 @@
 namespace spec\PhotoOrganize\Application;
 
 use Mockery;
-use PhotoOrganize\Domain\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\ExtractorInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Rx\Notification\OnNextNotification;

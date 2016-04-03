@@ -6,7 +6,7 @@ use Collections\SplayTree;
 use PhotoOrganize\Infrastructure\RxFilesystemIteratorAdapter;
 use Symfony\Component\Console\Output\OutputInterface;
 use Task\Plugin\FilesystemPlugin;
-use PhotoOrganize\Domain\FilesystemInterface;
+use PhotoOrganize\Domain\Ports\FilesystemInterface;
 
 /**
  * This class is needed to use the interface on it

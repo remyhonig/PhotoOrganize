@@ -3,9 +3,9 @@ namespace PhotoOrganize\Application;
 
 use PhotoOrganize\Application\SummaryRepository;
 use PhotoOrganize\Application\SymlinkCommandRepository;
-use PhotoOrganize\Domain\FilesystemInterface;
-use PhotoOrganize\Domain\FileWithDateRepository;
-use PhotoOrganize\Domain\LinkRepository;
+use PhotoOrganize\Domain\Ports\FilesystemInterface;
+use PhotoOrganize\Domain\Ports\FileWithDateRepository;
+use PhotoOrganize\Domain\Ports\LinkRepository;
 use PhotoOrganize\Infrastructure\Extractor\AndroidMovie;
 use PhotoOrganize\Infrastructure\Extractor\Fstat;
 use PhotoOrganize\Infrastructure\Extractor\PhpExif;

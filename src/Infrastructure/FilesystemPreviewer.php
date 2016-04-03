@@ -4,7 +4,7 @@ namespace PhotoOrganize\Infrastructure;
 
 use Collections\HashMap;
 use Collections\SplayTree;
-use PhotoOrganize\Domain\FilesystemInterface;
+use PhotoOrganize\Domain\Ports\FilesystemInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Task\Plugin\FilesystemPlugin;
 

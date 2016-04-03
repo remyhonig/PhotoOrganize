@@ -1,5 +1,7 @@
 <?php
-namespace PhotoOrganize\Domain;
+namespace PhotoOrganize\Domain\Ports;
+
+use PhotoOrganize\Domain\Path;
 
 interface LinkRepository
 {

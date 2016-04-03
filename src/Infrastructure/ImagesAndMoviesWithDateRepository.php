@@ -3,7 +3,7 @@ namespace PhotoOrganize\Infrastructure;
 
 use PhotoOrganize\Application\ImageDateRepository;
 use PhotoOrganize\Domain\FileWithDate;
-use PhotoOrganize\Domain\FileWithDateRepository;
+use PhotoOrganize\Domain\Ports\FileWithDateRepository;
 use Rx\Observable;
 use SplFileInfo;
 

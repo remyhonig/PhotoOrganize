@@ -2,7 +2,7 @@
 namespace PhotoOrganize\Infrastructure\Extractor;
 
 use DateTimeImmutable;
-use PhotoOrganize\Domain\ExtractorInterface;
+use PhotoOrganize\Domain\Ports\ExtractorInterface;
 use SplFileInfo;
 
 class Fstat implements ExtractorInterface

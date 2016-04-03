@@ -1,5 +1,5 @@
 <?php
-namespace PhotoOrganize\Domain;
+namespace PhotoOrganize\Domain\Ports;
 
 
 use Symfony\Component\Console\Output\OutputInterface;
