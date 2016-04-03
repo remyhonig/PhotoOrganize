@@ -11,8 +11,8 @@ use PhotoOrganize\Infrastructure\DateExtractor\Fstat;
 use PhotoOrganize\Infrastructure\DateExtractor\PhpExif;
 use PhotoOrganize\Infrastructure\DateExtractor\Whatsapp;
 use PhotoOrganize\Infrastructure\FilesystemSymlinkRepository;
-use PhotoOrganize\Infrastructure\Filesystem;
-use PhotoOrganize\Infrastructure\FilesystemPreviewer;
+use PhotoOrganize\Infrastructure\Filesystem\Filesystem;
+use PhotoOrganize\Infrastructure\Filesystem\FilesystemPreviewer;
 use PhotoOrganize\Infrastructure\ImagesAndMoviesWithDateRepository;
 use Ray\Di\AbstractModule;
 

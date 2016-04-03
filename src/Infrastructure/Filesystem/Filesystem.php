@@ -1,6 +1,6 @@
 <?php
 
-namespace PhotoOrganize\Infrastructure;
+namespace PhotoOrganize\Infrastructure\Filesystem;
 
 use Collections\SplayTree;
 use PhotoOrganize\Infrastructure\RxFilesystemIteratorAdapter;

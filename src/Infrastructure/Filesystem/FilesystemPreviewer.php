@@ -1,5 +1,5 @@
 <?php
-namespace PhotoOrganize\Infrastructure;
+namespace PhotoOrganize\Infrastructure\Filesystem;
 
 
 use Collections\HashMap;
