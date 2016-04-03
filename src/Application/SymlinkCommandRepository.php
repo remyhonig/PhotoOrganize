@@ -1,5 +1,5 @@
 <?php
-namespace PhotoOrganize\Infrastructure;
+namespace PhotoOrganize\Application;
 
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\SymlinkCommand;
@@ -8,20 +8,6 @@ use Rx\Observable;
 
 class SymlinkCommandRepository
 {
-    /**
-     * @var FileWithDateRepository
-     */
-    private $fileWithDateRepository;
-
-    /**
-     * SymlinkCommandRepository constructor.
-     * @param FileWithDateRepository $fileWithDateRepository
-     */
-    public function __construct(FileWithDateRepository $fileWithDateRepository)
-    {
-        $this->fileWithDateRepository = $fileWithDateRepository;
-    }
-
     /**
      * @param Observable $observable of FileWithDate
      * @param Path $targetPath

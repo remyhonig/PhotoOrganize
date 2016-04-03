@@ -6,7 +6,7 @@ use PhotoOrganize\Domain\FilesystemInterface;
 use PhotoOrganize\Domain\LinkRepository;
 use PhotoOrganize\Domain\Path;
 use PhotoOrganize\Domain\SymlinkCommand;
-use PhotoOrganize\Infrastructure\SymlinkCommandRepository;
+use PhotoOrganize\Application\SymlinkCommandRepository;
 use PhotoOrganize\Infrastructure\FileWithDateRepository;
 use PhotoOrganize\Infrastructure\FilesystemSymlinkRepository;
 use Rx\Observable;
