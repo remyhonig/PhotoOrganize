@@ -84,11 +84,7 @@ class SymlinkUseCase
         $symlinkCommands = $this->symlinkCommandRepository->createSymlinkCommands($filesWithDate, new Path($targetDir));
         $summary = $this->summaryRepository->summarize($filesWithDate);
 
-        $symlinkCommands->subscribeCallback(
-            function (SymlinkCommand $cmd) {
-                $this->output->onNext("$cmd");
-            }
-        );
+        $symlinkCommands->merge($summary)->subscribe($this->output);
 
         if (!$isDryRun) {
             $symlinkCommands->subscribeCallback(
@@ -99,11 +95,6 @@ class SymlinkUseCase
             );
         }
 
-        $summary->subscribeCallback(function ($value) {
-            $this->output->onNext($value);
-        });
-
         $filesWithDate->connect();
-        $this->output->onCompleted();
     }
 }
